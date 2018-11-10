@@ -1,0 +1,6 @@
+{
+    "name": "url shortener",
+    "description": "a simple url shortener microservice",
+    "repository": "https://github.com/bexis13/url-shortener",
+    "keywords": ["node","express", "static"]
+}
