@@ -1,6 +1,6 @@
-# API Basejump: Url shortener Microservice
+# APIs and Microservices: Exercise Tracker
 
-For the Free Code Camp Back End API [Url Shortener Microservice](https://www.freecodecamp.com/challenges/url-shortener-microservice) project.
+For the Free Code Camp APIs and Microservices[Exercise Tracker](https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/exercise-tracker) project.
 
 It exposes an endpoint  ```/new/:url``` to create a new shortened url
 
