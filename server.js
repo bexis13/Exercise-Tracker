@@ -2,11 +2,14 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var mongoose = require("mongoose");
-var urlPairModel = require("./models/urls");
+var userModel = require("./models/user");
 var validator = require("validator");
+var bodyParser = require("body-parser");
+var cors = require("cors");
 
 var port = process.env.PORT;
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //connect to the database
@@ -21,24 +24,22 @@ connection.on('open', function(){
     console.log("connected correctly to the database");
 })
 
-app.get("/new/:id(*)", function(request, response){
+app.post("/api/exercise/new-user", function(request, response){
     
-    var originalUrl = request.params.id; //url user typed in
+    //get username from user form
+    var userName = request.body.username;
     
-    //check if it's a valid url
-    if(!validator.isURL(originalUrl)){
-        response.send({error: "you can enter only valid urls"})
-    }
-    //create a shortened url representation
-    var shortCode = Math.floor(Math.random()*10000);
-    //create new urlpair from url model
-    var urlInstance = new urlPairModel({
-        originalUrl : originalUrl,
-        shortenedUrl : shortCode
+    //create a userid
+    var userId = Math.floor(Math.random()*10000);
+    
+    //create new user model
+    var userInstance = new userModel({
+        userName : userName,
+        id : userId
     });
     
-    //save urlPair data instance in the database
-    urlInstance.save(function(err,data){
+    //save new user data instance in the database
+    userInstance.save(function(err,data){
         if(err){
             console.log(err);
             response.send("Error saving to the database");
@@ -46,10 +47,9 @@ app.get("/new/:id(*)", function(request, response){
         if(data){
             //return back to the user only the original url and shortened form
             console.log(data);
-            var appUrl = 'https://bexis-url-shortener.herokuapp.com/';
             response.send({
-            originalUrl : originalUrl,
-            shortenedUrl : appUrl + shortCode
+            userName : userName,
+            id : userId
             });
         }
     })
