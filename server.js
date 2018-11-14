@@ -29,7 +29,7 @@ app.post("/api/exercise/new-user", function(request, response){
     //get username from user form
     var userName = request.body.username;
     
-    //create a userid
+    //create a userId
     var userId = Math.floor(Math.random()*10000);
     
     //create new user model
@@ -55,31 +55,26 @@ app.post("/api/exercise/new-user", function(request, response){
     })
 });
 
-app.get("/:id", function(request, response){
-    //get users shortcode
-    var shortCode = request.params.id;
-    //find document with this shortcode in the database collection urlpairmodel
-    urlPairModel.findOne({'shortenedUrl':shortCode}, function(err, docs){
+app.post("/api/exercise/add", function(request, response){
+    //get user id
+    var userId = request.body.id;
+    //find document with this userId in the database collection usermodel
+    userModel.findOne({'userId':userId}, function(err, docs){
         if(err){
-            response.send("cannot find your shortUrl in database. Please add it" +
-        " as new url /new/your_url_here");
+            response.send("cannot find this username in the database. Please"
+            +" create a new user to add exercises");
         }
         if(docs){
-            console.log(docs.originalUrl);
-            //check if docs original url does not have http in it
-            var check = docs["originalUrl"].substring(0,4);
-            //add http if it does not have
-            if(check !== "http"){
-                var urlToVisit = "http://" + docs.originalUrl;
-                response.redirect(urlToVisit);
-            }
-            //it has http, so:
-            //redirect user to appropriate url representation of the shortcode
-            response.redirect(docs.originalUrl);
-        }
-        else if(!docs){
-            response.send({error: "cannot find your shortened url in database."
-                + " Please create it as a new one"})
+            
+            //update the users count and log
+            
+            //send user his details
+            response.send({ 
+                "id": docs.id,
+                "username": docs.userName,
+                "count": docs.count,
+                "log": docs.log
+            });
         }
     })
 })
