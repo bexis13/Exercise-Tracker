@@ -8,17 +8,48 @@
         <div class="container">
             <h1>Exercise Tracker</h1><br>
             
-            <div id="form1">
+            <div id="newUserForm">
                 <h2> </h2>
                 <h4></h4>
                 <form action="/api/exercise/new-user"
                 method="post">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" 
-                    placeholder="username"/>
-                    <input type="submit" value="Submit">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" 
+                        placeholder="username"/>
+                    </div>
+                    <input type="submit" class="btn btn-default" value="Submit">
                 </form>
             </div> 
+            
+            <div id="addExerciseForm">
+                <h2> </h2>
+                <h4></h4>
+                <form action="/api/exercise/add"
+                method="post">
+                    <div class="form-group">
+                        <label for="userId">User Id</label>
+                        <input type="text" class="form-control" name="userId" 
+                        placeholder="user Id"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"> Description</label>
+                        <input type="text" class="form-control" name="description" 
+                        placeholder="description"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration"> Duration</label>
+                        <input type="text" class="form-control" name="duration" 
+                        placeholder="Duration (mins)"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="date"> date</label>
+                        <input type="text" class="form-control" name="date" 
+                        placeholder="date (dd-mm-yyyy)"/>
+                    </div>
+                    <input type="submit" class="btn btn-default" value="Submit">
+                </form>
+            </div>
             
                </pre><br>
             <h3>GET users's exercise log:</h3>
