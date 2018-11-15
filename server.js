@@ -10,6 +10,7 @@ var cors = require("cors");
 var port = process.env.PORT;
 
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')));
 
 //connect to the database
@@ -59,14 +60,12 @@ app.post("/api/exercise/add", function(request, response){
     //get user id
     var userId = request.body.id;
     //find document with this userId in the database collection usermodel
-    userModel.findOne({'userId':userId}, function(err, docs){
+    userModel.findOneAndUpdate({'userId':userId}, function(err, docs){
         if(err){
             response.send("cannot find this username in the database. Please"
             +" create a new user to add exercises");
         }
         if(docs){
-            
-            //update the users count and log
             
             //send user his details
             response.send({ 
