@@ -35,8 +35,10 @@ app.post("/api/exercise/new-user", function(request, response){
     
     //create new user model
     var userInstance = new userModel({
-        userName : userName,
-        id : userId
+        id : userId,
+        username : userName,
+        count : 0,
+        log : []
     });
     
     //save new user data instance in the database
@@ -47,7 +49,6 @@ app.post("/api/exercise/new-user", function(request, response){
         }
         if(data){
             //return back to the user only the original url and shortened form
-            console.log(data);
             response.send({
             userName : userName,
             id : userId
@@ -58,25 +59,33 @@ app.post("/api/exercise/new-user", function(request, response){
 
 app.post("/api/exercise/add", function(request, response){
     //get user id
-    var userId = request.body.id;
+    var userId = request.body.userId;
+    var newLog = {
+        "description" : request.body.description,
+        "duration" : request.body.duration,
+        "date" : request.body.date
+    }
     //find document with this userId in the database collection usermodel
-    userModel.findOneAndUpdate({'userId':userId}, function(err, docs){
+    userModel.findOneAndUpdate({'id':userId},
+    {$inc:{count: 1}, $push:{log: newLog }}, {new: true}, function(err, docs){
         if(err){
-            response.send("cannot find this username in the database. Please"
+            response.send("cannot find this user Id in the database. Please"
             +" create a new user to add exercises");
         }
         if(docs){
             
             //send user his details
             response.send({ 
-                "id": docs.id,
-                "username": docs.userName,
-                "count": docs.count,
-                "log": docs.log
+                "username" : docs.username,
+                "description" :request.body.description,
+                "duration" : request.body.duration,
+                "id": userId,
+                "date": request.body.date
             });
         }
     })
 })
+
 
 app.listen(port, function(){
     console.log("app is listening on port");
