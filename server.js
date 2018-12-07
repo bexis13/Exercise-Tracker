@@ -93,7 +93,11 @@ app.get("/api/exercise/log?", function(request, response){
             response.send("cannot find your userId in database.");
         }
         else if(docs){
-          
+            
+            //check for optional parameters in user query
+            if(request.query.from){
+                
+            }
             response.send({
                 "id" : docs._id,
                 "username" : docs.username,

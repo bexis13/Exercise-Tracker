@@ -2,45 +2,38 @@
 
 For the Free Code Camp APIs and Microservices[Exercise Tracker](https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/exercise-tracker) project.
 
-It exposes an endpoint  ```/new/:url``` to create a new shortened url
-
-
-The endpoint returns the following information:
-
-   1. The original url that was entered.
    
-   2. The short url that was generated.
-   
-
 ## User Stories:
-   1. I can pass a URL as a parameter and I will receive a shortened URL in the
-   JSON response.
+   1. You can create a user by posting form data username 
+   to /exercise/v1/newUser and returned will be an object with username and _id.
 
-   2. If I pass an invalid URL that doesn't follow the valid
-   http://www.example.com format, the JSON response will contain an error instead.
+   2. You can get all users /exercise/v1/users.
 
-   3. When I visit that shortened URL, it will redirect me to my original link.
+   3. You can add an exercise to any user by posting form data username, 
+   description, duration. /exercise/v1/add no date supplied it will use current
+   date.
+   
+   4. You can retrieve a full exercise log of any user by getting 
+   /exercise/api/log with a parameter of username.
+
+   5. You can retrieve part of the log of any user by also passing optional 
+   parameters. &from= &to= use date format yyyy-mm-dd and &limit= is a integer
 
 ## Example creation usage:
 
-```https://bexis-url-shortener.herokuapp.com/new/https://www.google.com ```
-or 
+### Show all users 
+```https://siteNameHere/exercise/v1/users ```
 
-```https://bexis-url-shortener.herokuapp.com/new/https://www.cs.princeton.edu/~rs/AlgsDS07/  ```
-    
-## Example creation output:
- 
-```{ "original_url": "https://www.cs.princeton.edu/~rs/AlgsDS07/", "short_url": "https://bexis-url-shortener.herokuapp.com/4376" } ```
-    
-## Usage:
+### Get users exercise log 
+```GET https:/siteNameHere/exercise/v1/log?user=aTestUser ``` 
+```GET https://siteNameHere/exercise/v1/log?user=aw34&from=2014-01-01&to=2017-12-31&limit=2 ```
 
-```https://bexis-url-shortener.herokuapp.com/4376 ```
+### Create a new user 
+```POST /exercise/v1/newUser ``
 
-## Will redirect to:
-
-```https://www.cs.princeton.edu/~rs/AlgsDS07/ ```
-
+### Add exercises 
+```POST /exercise/v1/add ```
     
     
 
-You can find the application hosted on Heroku [here](https://bexis-url-shortener.herokuapp.com/).
+You can find the application hosted on Heroku [here](https://glitch.com/).
