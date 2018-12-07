@@ -26,10 +26,11 @@ For the Free Code Camp APIs and Microservices[Exercise Tracker](https://learn.fr
 
 ### Get users exercise log 
 ```GET https:/siteNameHere/exercise/v1/log?user=aTestUser ``` 
+
 ```GET https://siteNameHere/exercise/v1/log?user=aw34&from=2014-01-01&to=2017-12-31&limit=2 ```
 
 ### Create a new user 
-```POST /exercise/v1/newUser ``
+```POST /exercise/v1/newUser ```
 
 ### Add exercises 
 ```POST /exercise/v1/add ```
